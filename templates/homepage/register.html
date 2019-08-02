@@ -1,0 +1,24 @@
+{% extends 'homepage/base.html' %}
+
+{% block main %}
+
+<!-- Header -->
+<div class="page-header">
+	<h2>Registration</h2>
+</div>
+
+<!-- Form for registering -->
+<div class="containers">
+	<form method="POST" class="form-horizontal" action="" enctype="multipart/form-data">
+		{% csrf_token %}
+		
+		{% for field in form %}
+			<label>{{field.label_tag}}</label>
+			{{field}}<br>
+		{% endfor %}
+
+		<button type="submit" class="btn-success">Register</button>
+	</form>
+</div>
+
+{% endblock %}

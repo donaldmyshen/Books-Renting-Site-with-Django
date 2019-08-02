@@ -1,0 +1,5 @@
+{% if request.user %}
+    <a href="{% url 'homepage:logout' %}"></a>
+{% else %}
+    <a href="{% url 'homepage:register' %}"></a>
+{% endif%}

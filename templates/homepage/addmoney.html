@@ -1,0 +1,18 @@
+{% extends 'homepage/base.html' %}
+
+{% block main %}
+
+<div class="page-header">
+	<h2>Add Money:</h2>
+</div>
+
+<form method="POST" action="{% url 'homepage:addmoney' %}">
+	{% csrf_token %}
+	<div class="containers">
+		<input type="number" min="0" step="0.01" name="add-money">
+		<button type="submit" class="btn-success">Add</button>
+	</div>
+</form>
+<hr>
+
+{% endblock %}

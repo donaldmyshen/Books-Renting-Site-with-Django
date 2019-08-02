@@ -1,0 +1,27 @@
+{% extends 'homepage/base.html' %}
+
+{% block main %}
+<!-- Header -->
+<div class="page-header">
+	<h2>Enter item information below</h2>
+</div>
+
+<!-- Form for inputting item info -->
+<div class="containers">
+	<form method="POST" class="form-horizontal" action="" enctype="multipart/form-data">
+		{% csrf_token %}
+
+		{% for field in form %}
+			{% if field.label_tag != '<label for="id_cost">cost:</label>' %}
+				<label>{{field.label_tag}}</label>
+				{{field}}<br>
+			{% else %}
+				<label for="id_cost">cost:</label>
+				<input type="number" step=".01" min=".01" required id="id_cost" name="cost"/><br><br>
+			{% endif %}
+		{% endfor %}
+		<button type="submit" class="btn-success">Save</button>
+	</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'homepage/base.html' %}
+
+{% block main %}
+
+<!-- Form for adding a review -->
+<div class="container">
+	<form method="POST" class="form-horizontal" action="" enctype="multipart/form-data">
+		{% csrf_token %}
+
+		{% for field in form %}
+			<label>{{field.label_tag}}</label>
+			{{field}}<br>
+		{% endfor %}
+
+		<button type="submit" class="btn-success">Add Review</button>
+	</form>
+</div>
+
+{% endblock %}

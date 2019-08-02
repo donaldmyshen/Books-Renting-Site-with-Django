@@ -1,0 +1,79 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+	<title>Library</title>
+
+	<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" 
+		rel="stylesheet"
+		integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx"
+		crossorigin="anonymous" >
+
+	<link rel="stylesheet" type="text/css" href="{% static 'homepage/stylesheet.css' %}" />
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="{% url 'homepage:index' %}">Home</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+			aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<form class="form-inline my-2 my-lg-0" role="search" method="GET" action="{% url 'homepage:search' %}">
+			<input type="text" class="form-control mr-sm-2" name="q" placeholder="Search">
+			<button type="submit" class="btn btn-secondary my-2 my-sm-0">Search!</button>
+		</form>
+		<div class="collapse navbar-collapse" id="navbarColor02">
+			<ul class="navbar-nav mr-auto">
+				<!-- for user not log in -->
+				{% if not user.is_authenticated %}
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'homepage:login' %}">Login</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'homepage:register' %}">Register</a>
+				</li>	
+				<!-- for user log in -->	
+				{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'homepage:add_item' %}">Donate</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'homepage:returnB' %}">Return</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'homepage:profile' %}"> {{ request.user }}</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'homepage:addmoneyform' %}"> &#36;{{ balance }}</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'homepage:cart' %}">Cart</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'homepage:logout' %}">Logout</a>
+				</li>
+				{% endif %}	
+			</ul>
+		</div>
+	</nav>
+
+	<!-- Content of other html pages gets put here -->
+	{% block main %}
+	{% endblock %}
+
+	 <!-- Javascript and jQuery -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+{% extends 'homepage/base.html'%}
+
+{% block main %}
+
+{% if item_list %}
+	<!-- Header -->
+	<div class="page-header">
+		<h2>Thanks for you return</h2>
+	</div>
+
+	<!-- List of items in cart -->
+	<div class="containers">
+		{% for item in item_list %}
+			<a href="{% url 'homepage:detail' item.item.id %}">{{ item.item.name }}</a><br>
+			<img src="{{item.item.image.url}}" alt="">
+			<p> &#36;{{ item.item.cost }}</p><br><br>
+		{% endfor %}
+
+		<!-- Return link -->
+		<a href="{% url 'homepage:returnBooks' %}" >Return Books</a>
+	</div>
+
+{% else %}
+	<!-- If item list is empty -->
+	<div class="page-header">
+		<h2>No books you need to return</h2>
+	</div>
+
+{% endif %}
+
+{% endblock %}

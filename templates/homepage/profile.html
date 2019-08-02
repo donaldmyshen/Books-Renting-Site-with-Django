@@ -1,0 +1,34 @@
+{% extends 'homepage/base.html'%}
+
+{% block main %}
+
+{% if item_list %}
+	<!-- Header -->
+	<div class="page-header">
+		<h2>Your Items</h2>
+	</div>
+
+	<!-- List of items the user owns -->
+	<div class="containers">
+
+		{% for item in item_list %}
+			<h4>{{ item.name }}</h4><br>
+			<img src="{{item.image.url}}" alt="">
+			<p> 
+				It cost: &#36;{{ item.cost }}<br>
+				Donate by: {{ item.donator }}<br>
+				<a href="{% url 'homepage:add_to_return' item_id=item.id %}">Ready to return</a> 
+			</p><br><br>
+		{% endfor %}
+		
+	</div>
+
+{% else %}
+	<!-- Header -->
+	<div class="page-header">
+		<h2>You currently own no items</h2>
+	</div>
+
+{% endif %}
+
+{% endblock %}

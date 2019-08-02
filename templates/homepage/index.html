@@ -1,0 +1,111 @@
+{% extends 'homepage/base.html' %}
+
+{% block main %}
+
+{% if item_list %}
+<!-- Header -->
+<div class="page-header">
+	<h2>All Books List{% if category is not None %}({{ category }}) {% endif %}</h2>
+</div>
+
+<!-- Dropdown menu for categories -->
+<div class="category-form">
+	<form method="POST" action="{% url 'homepage:category' %}">
+		{% csrf_token %}
+		<p>Select Category:</p>
+		<select class="selectpicker" name="select_category">
+	            <option value="Art">Art</option>
+	            <option value="Drama">Drama</option>
+	            <option value="Engineering">Engineering</option>
+	            <option value="Fashion">Fashion</option>
+	            <option value="Food">Food</option>
+	            <option value="Health">Health</option>
+	            <option value="Romance">Romance</option>
+	            <option value="Science">Science</option>
+	            <option value="Sports">Sports</option>
+	            <option value="Other">Other</option>
+	    </select>
+		<button class="btn-success" type="submit">Go</button>
+	</form>
+</div><hr>
+
+<!-- Form for inputting a maximum cost -->
+<form method="POST" action="{% url 'homepage:filtercost' %}">
+	{% csrf_token %}
+	<div class="containers">
+		<p>Maximum cost:</p>
+		<input type="number" step="0.01" name="max-cost">
+		<button type="submit" class="btn-success">Filter</button>
+	</div>
+</form>
+<hr>
+
+<!-- List of items -->
+<div class="containers">
+
+	{% for item in item_list %}
+		<!-- Link to details page, cost, and thumbnail -->
+		<a href="{% url 'homepage:detail' item.id %}">{{ item.name }}</a><br>
+		&#36;{{ item.cost }} <br>
+		<img class="img-thumbnail" src="{{item.image.url}}" alt="">
+
+		<!-- Buttons for editing and deleting items -->
+		{% if request.user == item.donator %}
+			<div class="item-buttons">
+				<form action="{% url 'homepage:edit_item'  item.id %}" class="edit-item">
+					{% csrf_token %}
+					<button type="submit" class="btn-info">Edit</button>	
+				</form>
+
+				<form action="{% url 'homepage:delete_item'  item.id %}" method="POST" class="delete-item">
+					{% csrf_token %}
+					<button type="submit" class="btn-danger">Delete</button>		
+				</form>
+			</div>
+		{% endif %}
+
+		<br><br>
+
+	{% endfor %}
+</div>
+
+{% else %}
+	<!-- Header -->
+	<div class="page-header">
+		<h3>No items found</h3>
+	</div>
+
+	<!-- Dropdown menu for selecting category -->
+	<div class="category-form">
+		<form method="POST" action="{% url 'homepage:category' %}">
+			{% csrf_token %}
+			<p>Select Category:</p>
+			<select class="selectpicker" name="select_category">
+		            <option value="Art">Art</option>
+		            <option value="Drama">Drama</option>
+		            <option value="Engineering">Engineering</option>
+		            <option value="Fashion">Fashion</option>
+		            <option value="Food">Food</option>
+		            <option value="Health">Health</option>
+		            <option value="Romance">Romance</option>
+		            <option value="Science">Science</option>
+		            <option value="Sports">Sports</option>
+		            <option value="Other">Other</option>
+		    </select>
+			<button class="btn-success" type="submit">Go</button>
+		</form>
+	</div><hr>
+
+	<!-- Form for selecting a maximum cost -->
+	<form method="POST" action="{% url 'homepage:filtercost' %}">
+		{% csrf_token %}
+		<div class="containers">
+			<p>Maximum cost:</p>
+			<input type="number" step="0.01" name="max-cost">
+			<button type="submit" class="btn-success">Filter</button>
+		</div>
+	</form><hr>
+
+{% endif %}
+
+{% endblock %}

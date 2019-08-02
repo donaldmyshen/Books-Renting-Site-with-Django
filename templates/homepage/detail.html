@@ -1,0 +1,35 @@
+{% extends 'homepage/base.html'%}
+
+{% block main %}
+
+<!-- This div contains all the details of a specific item -->
+<div class="containers">
+	<h1>{{item.name}}</h1>
+	<img class="img-detail" src= "{{item.image.url}}" alt="">
+
+	<p>
+		Cost: &#36;{{item.cost}} <br>
+		donator: {{item.donator}} <br>
+		Description: {{item.description}} <br>
+		Tags: {{item.tags}}
+	</p>
+
+	<!-- Only allow users to add item to cart if they are not the one who posted it -->
+	{% if request.user != item.donator %}
+		<a href="{% url 'homepage:add_to_cart' item_id=item.id %}">Add to cart</a>
+	{% endif %}
+
+	<h2>Reviews</h2>
+
+	<!-- Only allow logged in users to add reviews -->
+	{% if request.user.is_authenticated %}
+		<a href="{% url 'homepage:add_review' item_id=item.id %}">Add Review</a>
+	{% endif %}
+			
+	<!-- Display all the reviews -->
+	{%  for review in item.reviews_set.all %}
+		<p><strong>{{review.user}}</strong>: {{review.review}}</p>
+	{% endfor %}
+</div>
+
+{% endblock %}
