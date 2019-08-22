@@ -2,6 +2,20 @@
 An online books renting system built with python Django Framework.
 
 ---
+# Manual
+Don't know how to start? Check offcial Manual here.
+https://docs.djangoproject.com/en/2.2/intro/tutorial01/
+
+$ python manage.py migrate
+$ python manage.py runserver
+
+Then you can open the site with your local server:
+http://127.0.0.1:8000/homepage/
+
+Or check the database from:
+http://127.0.0.1:8000/admin/login/?next=/admin/
+
+---
 # Structure
 - Fullstack framework: Django
 - Langurage: Python
@@ -27,3 +41,9 @@ An online books renting system built with python Django Framework.
     - System will charge some fee when return books
     - User can add comments to the books
 - Database contains users/books/comments/balance
+---
+# Demo
+![image](https://raw.githubusercontent.com/donaldmyshen/Books-Renting-Site-with-Django/master/Screenshot/1.png)
+![image](https://raw.githubusercontent.com/donaldmyshen/Books-Renting-Site-with-Django/master/Screenshot/2.png)
+![image](https://raw.githubusercontent.com/donaldmyshen/Books-Renting-Site-with-Django/master/Screenshot/3.png)
+![image](https://raw.githubusercontent.com/donaldmyshen/Books-Renting-Site-with-Django/master/Screenshot/4.png)
