@@ -14,9 +14,12 @@
 		Tags: {{item.tags}}
 	</p>
 
+    <!-- Only allow users to add item after log in -->
 	<!-- Only allow users to add item to cart if they are not the one who posted it -->
-	{% if request.user != item.donator %}
-		<a href="{% url 'homepage:add_to_cart' item_id=item.id %}">Add to cart</a>
+    {% if user.is_authenticated %}
+        {% if request.user != item.donator %}
+		    <a href="{% url 'homepage:add_to_cart' item_id=item.id %}">Add to cart</a>
+        {% endif %}
 	{% endif %}
 
 	<h2>Reviews</h2>
